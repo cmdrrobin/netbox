@@ -1012,6 +1012,20 @@ class InterfaceImportForm(NetBoxModelImportForm):
         else:
             return self.cleaned_data['enabled']
 
+    def clean_wwn(self):
+        # When wwm is empty convert it to null
+        if self.cleaned_data['wwn'] == '':
+            self.cleaned_data['wwn'] = None
+
+        return self.cleaned_data['wwn']
+
+    def clean_mode(self):
+        # When mode is empty convert it to null
+        if self.cleaned_data['mode'] == '':
+            self.cleaned_data['mode'] = None
+
+        return self.cleaned_data['mode']
+
     def clean_vdcs(self):
         for vdc in self.cleaned_data['vdcs']:
             if vdc.device != self.cleaned_data['device']:
